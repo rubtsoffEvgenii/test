@@ -1,3 +1,4 @@
+
 var db = [
   {
     "docDate": "2017-10-16 12:07:07",
@@ -530,20 +531,73 @@ var db = [
     "productRemoved": 1
   }
 ]
-    
-var data = {
-    date: db[0].docDate,
-    docTypes: db[0].docTypeName,
-    id: db[0].docId,
-    image: db[0].productImage,
-    name: db[0].productName,
-    price: db[0].productPrice,
-    quantity: db[0].rowQuantity,
-    removed: db[0].productRemoved
-};
-var template = "<h1>sfbhsdf{{ПРОВЕРКА}}</h1>{{date}} {{id}} {{docTypes}} {{image}} {{name}} {{price}} {{quantity}} {{removed}}";
-var result = Mustache.render(template, data);
 
-document.getElementById('person').innerHTML = result;
+// // перевод даты 
+// db.date = new Date(db.date).toLocaleString('ru', {
+//   // year: 'numeric',
+//   month: 'long',
+//   day: 'numeric'
+// });
+// alert( data.date.toUpperCase() + data.Docdate.substr(1);
+// );
 
-console.log(result);
+// создать объект и отрендерить его
+
+var wrapper = document.getElementById('wrapper');
+
+var head = "{{docDate}}";
+var sumDoc  = "Документов: {{}}";
+var typeDoc = "{{docTypes}} №{{id}}";
+
+var result;
+
+function List(index, conteiner) {
+  this.index = index;
+  // this.conteiner = conteiner;
+}
+
+
+List.prototype.generateList = function (index) {
+  var result;
+  var list = document.createElement('div');
+  list.classList.add('list');
+  console.log('sdvs');
+  // conteiner.appendChild(list);
+  result = Mustache.render(head, db[index]);
+  
+
+  document.getElementById('wrapper').innerHTML = result;
+}
+
+var array = [];
+    var i = 0;
+
+    while (i < db.length) {
+      var obj = new List(i);
+      obj.generateList(i);
+      array[i] = obj;
+      console.log(array[i]);
+      i++;
+  }
+
+
+
+
+// var result;
+// for(i=1; i<db.length;i++){
+//   db.docDate = new Date(db.docDate).toLocaleString('ru', {
+//     // year: 'numeric',
+//     month: 'long',
+//     day: 'numeric'
+//   });
+//    result += Mustache.render(head, db[i]);
+// }
+
+// document.getElementById('person').innerHTML = result;
+// // document.getElementById('sumDoc').innerHTML = sum;
+// // document.getElementById('type').innerHTML = type;
+
+// console.log(result);
+
+
+
